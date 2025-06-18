@@ -9,12 +9,13 @@ public class UserRepository {
     /*---------------------------------------
                   Attributs
     ---------------------------------------*/
-    private static Connection connection = BDD.getConnection();
+    private Connection connection = BDD.getConnection();
 
     /*---------------------------------------
                   Méthodes
     ---------------------------------------*/
-    public static User add(User newUser) {
+    //Méthode pour ajouter un User en BDD
+    public User add(User newUser) {
         try {
             //2 écrire la requête
             String request = "INSERT INTO " +
@@ -40,7 +41,8 @@ public class UserRepository {
         return newUser;
     }
 
-    public static User findByEmail(String email) {
+    //Méthode pour récupérer un objet User en BDD
+    public User findByEmail(String email) {
         User user = null;
         try {
             //Ecrire la requête
