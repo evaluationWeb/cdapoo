@@ -7,6 +7,6 @@ public class Main {
     public static void main(String[] args) {
         User mathieu = new User("Mathieu", "Mithridate", "mathieu5588@test.com", "1234");
         UserService userService = new UserService();
-        userService.addUser(mathieu);
+        User addUser = userService.addUser(mathieu);
     }
 }
