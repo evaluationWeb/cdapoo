@@ -3,10 +3,7 @@ package com.adrar.repository;
 import com.adrar.model.User;
 import com.adrar.utils.BDD;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class UserRepository {
     /*---------------------------------------
@@ -19,8 +16,6 @@ public class UserRepository {
     ---------------------------------------*/
     public static User add(User newUser) {
         try {
-            //1 se connecter
-            Statement stmt = connection.createStatement();
             //2 écrire la requête
             String request = "INSERT INTO " +
                     "users(firstname, lastname, email, password) " +
@@ -38,10 +33,36 @@ public class UserRepository {
                 newUser = null;
             }
         }
-        catch (Exception e) {
-            System.out.println(e.getMessage());
+        catch (SQLException e) {
+            newUser = null;
         }
 
         return newUser;
+    }
+
+    public static User findByEmail(String email) {
+        User user = null;
+        try {
+            //Ecrire la requête
+            String request = "SELECT u.id, u.firstname, u.lastname, u.email FROM users AS u WHERE u.email = ?";
+            //préparer la requête
+            PreparedStatement prepare = connection.prepareStatement(request);
+            //Assigner les paramètres
+            prepare.setString(1, email);
+            //Exécuter la requête
+            ResultSet rs = prepare.executeQuery();
+            //Test si la requête retourne une ou plusieurs enregistrements
+            while(rs.next()) {
+                user = new User();
+                user.setId(rs.getInt("id"));
+                user.setFirstname(rs.getString("firstname"));
+                user.setLastname(rs.getString("lastname"));
+                user.setEmail(rs.getString("email"));
+            }
+            //retourner le résultat
+        } catch (SQLException e) {
+            user = null;
+        }
+        return user;
     }
 }
