@@ -1,9 +1,17 @@
 package com.adrar;
 
-import java.sql.Connection;
-import com.adrar.utils.BDD;
+import com.adrar.model.User;
+import com.adrar.repository.UserRepository;
+
 public class Main {
     public static void main(String[] args) {
-       Connection mysql = BDD.getConnection();
+       User mathieu = new User("Mathieu", "Mithridate", "mathieu@test.com", "1234");
+       //
+       if(UserRepository.add(mathieu) != null) {
+           System.out.println("Le compte "+ mathieu.getEmail() + " a été ajouté");
+       }
+       else{
+           System.out.println("L'enregistrement à échoué");
+       }
     }
 }
