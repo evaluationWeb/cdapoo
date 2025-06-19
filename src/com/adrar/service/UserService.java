@@ -2,7 +2,6 @@ package com.adrar.service;
 
 import com.adrar.model.User;
 import com.adrar.repository.UserRepository;
-
 import java.util.ArrayList;
 
 public class UserService {
