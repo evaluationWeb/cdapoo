@@ -73,4 +73,15 @@ public class Book {
     public void removeUser(User user) {
         this.users.remove(user);
     }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", author='" + author + '\'' +
+                ", users=" + users +
+                '}';
+    }
 }
