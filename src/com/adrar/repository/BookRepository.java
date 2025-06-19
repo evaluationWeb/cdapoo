@@ -5,6 +5,7 @@ import com.adrar.utils.BDD;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class BookRepository {
@@ -34,5 +35,31 @@ public class BookRepository {
             e.printStackTrace();
         }
         return newBook;
+    }
+
+    public Book find(int id) {
+        Book book = null;
+        try {
+            //1 écrire la requête
+            String request = "SELECT b.id, b.title, b.description, b.author FROM book AS b WHERE b.id = ?";
+            //2 préparer la requête
+            PreparedStatement prepare = connection.prepareStatement(request);
+            //3 assigner les paramètres
+            prepare.setInt(1, id);
+            //4 exécuter la requête
+            ResultSet rs = prepare.executeQuery();
+            //Récupérer le resultat de la requête
+            while (rs.next()) {
+                book = new Book();
+                book.setId(rs.getInt("id"));
+                book.setTitle(rs.getString("title"));
+                book.setDescription(rs.getString("description"));
+                book.setAuthor(rs.getString("author"));
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return book;
     }
 }
