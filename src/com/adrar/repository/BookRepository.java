@@ -62,4 +62,21 @@ public class BookRepository {
         }
         return book;
     }
+
+    public boolean delete(int id) {
+        boolean result = false;
+        try {
+            String request = "DELETE FROM book as b WHERE b.id = ?";
+            PreparedStatement prepare = connection.prepareStatement(request);
+            prepare.setInt(1, id);
+            int rows = prepare.executeUpdate();
+            if(rows == 1) {
+                result = true;
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }
