@@ -1,12 +1,13 @@
 package com.adrar.model;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class Book {
     /*---------------------------------------
                   Attributs
     ---------------------------------------*/
-    private int id;
+    private Integer id;
     private String title;
     private String description;
     private String author;
